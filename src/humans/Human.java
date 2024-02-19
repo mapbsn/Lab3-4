@@ -17,7 +17,6 @@ public abstract class Human {
 	protected Feeling feeling = Feeling.DEFAULT;
 
 	private Item carriedItem;
-	private int itemCount = 0;
 
 	protected Human(String name) {
 		this.name = name;
