@@ -3,8 +3,12 @@ package enums;
 public enum Direction {
 	
 	BACK("back"),
+	FORWARD("forward"),
+	LEFTWAY("left"),
+	RIGHTWAY("right"),
 	UP("up"),
-	DOWN("down"), 
+	DOWN("down"),
+	FROMSIDETOSIDE(" from side to side"),
 	OUT("out"),
 	UNDER("under"),
 	INTO("into");

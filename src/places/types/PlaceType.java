@@ -2,10 +2,12 @@ package places.types;
 
 public enum PlaceType {
 
-	FIRSTFLOOR("first floor"),
-	SECONDFLOOR("second floor"),
+	BATHROOM("bathroom"),
+	BEDROOM("bedroom"),
+	HALLWAY("hallway"),
+	KITCHEN("kitchen"),
 	STAIRS("stairs"),
-	OUTSIDE("outside");
+	MEDICALCENTER("Medical Center");
 
 	 private final String placeType;
 	 PlaceType(String placeType) {

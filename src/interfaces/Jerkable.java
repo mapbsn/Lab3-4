@@ -1,7 +1,9 @@
 package interfaces;
 
+import enums.Direction;
+import exceptions.TooHeavyException;
 import items.Item;
 
 public interface Jerkable {
-    void jerk(String item);
+    void jerk(Direction direction, Item item) throws TooHeavyException;
 }

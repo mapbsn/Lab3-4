@@ -4,8 +4,8 @@ import places.types.PlaceType;
 
 public class Hallway extends Place {
 
-	public Hallway(String name, PlaceType placeType) {
-		super(name, PlaceType.SECONDFLOOR);
+	public Hallway() {
+		super(PlaceType.HALLWAY);
 	}
 
 }

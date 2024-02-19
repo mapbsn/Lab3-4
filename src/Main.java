@@ -1,70 +1,58 @@
-import bodyparts.states.BodyPartState;
+import exceptions.TooHeavyException;
 import humans.*;
-import bodyparts.*;
-import bodyparts.states.ArmType;
 import humans.states.State;
 import items.*;
 import others.Reality;
 import others.World;
 import places.*;
-import places.types.PlaceType;
+
 import java.util.Arrays;
 import java.util.List;
 
 import enums.Direction;
 
 public class Main {
-	public static void main (String[] args) {
+	public static void main (String[] args) throws TooHeavyException {
 
-		Bedroom bedroom = new Bedroom("bedroom", PlaceType.SECONDFLOOR);
-		Kitchen kitchen = new Kitchen("kitchen", PlaceType.FIRSTFLOOR);
-		Hallway hallway = new Hallway("hallway", PlaceType.FIRSTFLOOR);
-		Stairs stairs = new Stairs("stairs", PlaceType.STAIRS);
-		Stairs.Riser riser = new Stairs.Riser("riser", PlaceType.STAIRS);
-		MedicalCenter medicalcenter = new MedicalCenter("Medical Center", PlaceType.OUTSIDE);
-		Bathroom bathroom = new Bathroom("bathroom", PlaceType.FIRSTFLOOR);
+		Bedroom bedroom = new Bedroom();
+		Kitchen kitchen = new Kitchen();
+		Hallway hallway = new Hallway();
+		Stairs stairs = new Stairs();
+		Stairs.Riser riser = new Stairs.Riser();
+		MedicalCenter medicalcenter = new MedicalCenter();
+		Bathroom bathroom = new Bathroom();
 		World world = new World(new Place[]{bedroom, kitchen, hallway, stairs, riser, medicalcenter, bathroom});
 
-		Bed bed = new Bed("bed");
-		Bed.Blanket blanket = new Bed.Blanket("blankets");
-		Bed.Rug rug = new Bed.Rug("rug");
-		Bed.Sheets sheets = new Bed.Sheets("sheets");
-		Shower shower = new Shower("shower");
-		Shower.Handle handle = new Shower.Handle("handle");
-		Shower.Water water = new Shower.Water("water");
+		Bed bed = new Bed();
+		Blanket blanket = new Blanket(1, 10);
+		Rug rug = new Rug(1, 10);
+		Shower shower = new Shower(10, 10);
 
-		Louis louis = new Louis("Louis");
-		Rachel rachel = new Rachel("Rachel");
-		Pascow pascow = new Pascow("Pascow");
+		Louis louis = new Louis();
+		Rachel rachel = new Rachel();
+		Pascow pascow = new Pascow();
 
-		Reality reality = new Reality("Reality");
+		Reality reality = new Reality();
 
 		bedroom.appearAt(louis);
 		kitchen.appearAt(rachel);
 		medicalcenter.appearAt(pascow);
 
-		bedroom.placeMultiple(new Item[]{bed, blanket, rug, sheets});
-		bathroom.placeMultiple(new Item[]{shower, handle, water});
+		bedroom.placeMultiple(new Item[]{bed, blanket, rug});
+		bathroom.placeMultiple(new Item[]{shower});
 
 		rachel.say("'One egg or two?'");
-		louis.push(Direction.BACK, blanket.getName());
-		louis.swing(Direction.OUT, rug.getDescription(), rug.getName());
+		louis.push(Direction.BACK, blanket);
+		louis.swing(louis.feet, Direction.OUT, rug.getDescription(), rug);
 		louis.tell(rachel.getName());
 
 		System.out.print("and the words died in his throat.");
 
-		Legs legs = new Legs("legs");
-		Legs.Feet feet = new Legs.Feet("feet");
-		Heart heart = new Heart("heart");
-		Eyes eyes = new Eyes("eyes");
-		Tongue tongue = new Tongue("tongue");
-		Arm arm = new Arm("arm");
-
-		feet.beFilthy();
-		heart.leapUp(louis.getName());
-		louis.kick(Direction.BACK);
+		louis.feet.beFilthy();
+		louis.heart.leapUp(louis.getName());
+		louis.kick(louis.eyes, louis.eyes.getDescription(), louis.teeth, louis.teeth.getDescription(), Direction.BACK);
 		bed.littered();
-		sheets.beDirty();
+		bed.sheets.beDirty();
 
 		List<String> rachelQuotes = Arrays.asList (
 				"'Louis?'",
@@ -76,11 +64,10 @@ public class Main {
 		Talking.talk(rachelQuotes);
 		
 		louis.see("a few errant pine needles on his knees,");
-		louis.lookAt(arm.getName());
 		try {
-			arm.setType(ArmType.getRandomArmType());
+			louis.lookAt(louis.arm.toString());
 		} catch (Exception e) {
-			 System.out.println(e.getMessage());
+			System.out.println(e.getMessage());
 		}
 
 		List<String> louisThoughts = Arrays.asList(
@@ -96,37 +83,32 @@ public class Main {
 		louis.think("Reality-the real reality,", "was those needles, the filth on the sheets, the bloody scratch on his bare arm.");
 		Thinking.think(louisThoughts);
 		Talking.talk(rachelQuotes);
-		rachel.changePlace(world.getPlace(rachel), stairs);
-		rachel.come(Direction.UP, stairs.getName());
+		rachel.move(world.getPlace(rachel), stairs);
+		rachel.come(Direction.UP, world.getPlace(rachel));
 		Talking.talk(rachelQuotes);
 		louis.grapple();
-		pascow.beBrought(Direction.INTO, medicalcenter.getName(), blanket.getName());
+		pascow.beBrought(Direction.INTO, medicalcenter, blanket);
 		louis.win();
 		Thinking.think(louisThoughts);
 		louis.say("'I'm awake,'");
-		tongue.bleed(tongue.getName());
+		louis.bite(louis.tongue);
 		louis.wonder("if he had always been within touching distance of such mad irrationalities; if everyone was");
 		Talking.talk(rachelQuotes);
-		rachel.stop(riser.getName());
+		rachel.stop(riser);
 		Thinking.think(louisThoughts);
 		louis.say("'Two. Scrambled,'");
 		rachel.say("'Good for you,'");
-		rachel.changePlace(world.getPlace(rachel), kitchen);
-		louis.close(eyes.getName());
-		louis.see("Pascow's silver eyes.");
-		eyes.open(louis.getName());
-		louis.move();
-		louis.jerk(sheets.getDescription());
+		rachel.move(world.getPlace(rachel), kitchen);
+		louis.seeInDark(pascow.getName(), pascow.eyes.toString());
+		louis.beginToMove(bedroom);
+		louis.jerk(Direction.FORWARD, bed.sheets);
 		blanket.beOkay();
-		louis.takeItem(sheets, world.getPlace(sheets));
-		louis.tidy(Direction.OUT, sheets.getName());
-		louis.changePlace(world.getPlace(louis), stairs);
-		louis.changePlace(world.getPlace(louis), hallway);
-		louis.dropItem(sheets, world.getPlace(louis));
-		louis.changePlace(hallway, bathroom);
-		louis.jerk(handle.getDescription());
-		louis.step(Direction.UNDER, water.getName(), water.getDescription());
-		louis.wash(feet.getName(), legs.getName(), BodyPartState.CLEAN);
+		louis.tidy(world.getPlace(louis), hallway, Direction.OUT, bed.sheets);
+		louis.dropItem(bed.sheets);
+		louis.move(world.getPlace(louis), bathroom);
+		louis.jerk(Direction.UP, shower.handle);
+		louis.step(bathroom, Direction.UNDER, shower.water.toString(), shower.water.getDescription());
+		louis.wash(louis.feet, louis.legs);
 		louis.feelBetter();
 		louis.dryOff();
 		louis.laugh();

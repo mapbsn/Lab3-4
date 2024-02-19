@@ -4,6 +4,7 @@ public enum ItemState {
 
     DEFAULT("default"),
     DIRTY("dirty"),
+    CLEAN("clean"),
     TOSSED("tossed");
 
     private final String state;

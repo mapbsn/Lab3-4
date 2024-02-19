@@ -1,22 +1,18 @@
 package bodyparts;
 
 import bodyparts.states.BodyPartState;
-import humans.Human;
+
 import java.util.Objects;
 
 public abstract class BodyPart {
-	protected BodyPart(String name) {
-		this.name = name;
+	protected BodyPart() {
 	}
-	public final String name;
 	protected BodyPartState state = BodyPartState.DEFAULT;
 
-	public String getName() {
-		return this.name;
-	}
-	public BodyPart setBodyPartState(BodyPartState state) {
+	public abstract String toString();
+
+	public void setBodyPartState(BodyPartState state) {
 		this.state = state;
-		return null;
 	}
 	protected BodyPartState getBodyPartState() {
 		return state;
@@ -24,15 +20,14 @@ public abstract class BodyPart {
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(name, getBodyPartState());
+		return Objects.hash(getBodyPartState());
 	}
 
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj) return true;
 		return (obj instanceof BodyPart bodyPart)
-				&& (state.equals(bodyPart.state)
-				&& name.equals(bodyPart.name));
+				&& (state.equals(bodyPart.state));
 	}
 
 }

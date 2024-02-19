@@ -3,5 +3,5 @@ package interfaces;
 import places.Place;
 
 public interface Stoppable {
-    void stop(String place);
+    void stop(Place place);
 }

@@ -1,57 +1,42 @@
 package items;
 
+import interfaces.Dirtiable;
 import items.states.ItemState;
 
-public class Bed extends Item {
+public class Bed extends Item implements Dirtiable {
 
 
-    public Bed(String name) {
-        super(name);
+    public Sheets sheets;
+    public Needles needles;
+    public Bed() {
+        super(40, 1, 10);
+        this.sheets = new Sheets(1, 10);
+        this.needles = new Needles(-100, 0);
     }
 
     public void littered() {
         setState(ItemState.DIRTY);
-        System.out.printf("The foot of the %s was littered with needles.", name);
+        this.adjustDirtiness(5);
+        needles.setX(this.getX());
+        needles.setY(this.getY());
+        System.out.printf("The foot of the %s was littered with %s.", this.toString(), needles.toString());
+    }
+    private int dirtinessLevel;
+
+    @Override
+    public String toString() {
+        return "bed";
     }
 
-    public static class Blanket extends Bed {
-
-        public Blanket(String name) {
-            super(name);
-        }
-
-        public void beOkay() {
-            setState(ItemState.DEFAULT);
-            System.out.printf("%s were okay.", name);
-        }
+    @Override
+    public void adjustDirtiness(int level) {
+        dirtinessLevel += level;
+        System.out.printf("Dirtiness level adjusted: %d%n", dirtinessLevel);
     }
 
-    public static class Rug extends Bed {
-
-
-        public Rug(String name) {
-            super(name);
-        }
-
-        @Override
-        public String getDescription() {
-            return "hooked";
-        }
+    @Override
+    public void decreaseDirtiness(int level) {
+        dirtinessLevel -= level;
+        System.out.printf("Dirtiness level decreased: %d%n", dirtinessLevel);
     }
-
-    public static class Sheets extends Bed {
-        public Sheets(String name) {
-            super(name);
-        }
-        public void beDirty() {
-            setState(ItemState.DIRTY);
-            System.out.printf("The %s were mucky and dirty.", name);
-        }
-
-        public String getDescription() {
-            return "the bedclothes off the bed.";
-        }
-    }
-
-
 }
