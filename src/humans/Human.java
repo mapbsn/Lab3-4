@@ -6,8 +6,6 @@ import exceptions.TooHeavyException;
 import humans.states.*;
 import items.Item;
 import places.Place;
-
-import java.util.ArrayList;
 import java.util.Objects;
 
 public abstract class Human {
