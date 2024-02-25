@@ -3,12 +3,7 @@ package humans.states;
 public enum State {
 
     DEFAULT("default"),
-    READY("ready"),
     OBSERVING("observing"),
-    THINKING("thinking"),
-    GRAPPLING("grappling"),
-    TALKING("talking"),
-    LAUGHING("laughing"),
     MOVING("moving"),
     WALKING("walking"),
     TIDYING("tidying"),

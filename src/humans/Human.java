@@ -12,6 +12,7 @@ public abstract class Human {
 	
 	public final String name;
 	protected State state = State.DEFAULT;
+	protected MentalState mentalState = MentalState.DEFAULT;
 	protected Feeling feeling = Feeling.DEFAULT;
 
 	private Item carriedItem;
@@ -30,6 +31,8 @@ public abstract class Human {
 	 protected State getState() {
 		return this.state;
 	 }
+	 protected void setMentalState(MentalState mentalState) {this.mentalState = mentalState;}
+	 protected MentalState getMentalState() {return this.mentalState;}
 	 protected void setFeeling(Feeling feeling) {
 		 this.feeling = feeling;
 	 }
@@ -99,7 +102,7 @@ public abstract class Human {
 	@Override
 	public int hashCode() {
 		return Objects.hash(name, getFeeling(),
-				getState());
+				getState(), getMentalState());
 	}
 
 	@Override
@@ -108,6 +111,7 @@ public abstract class Human {
 		return (obj instanceof Human human)
 				&& (feeling.equals(human.feeling)
 				&& state.equals(human.state)
+				&& mentalState.equals(human.mentalState)
 				&& name.equals(human.name));
 	}
  

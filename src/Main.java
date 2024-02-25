@@ -61,7 +61,7 @@ public class Main {
 				"'One egg or two?'"
 	    );
 		
-		Talking.talk(rachelQuotes);
+		Talking.talk(rachelQuotes, rachel);
 		
 		louis.see("a few errant pine needles on his knees,");
 		try {
@@ -77,25 +77,25 @@ public class Main {
 				"Thank God."
 				);
 		
-		Thinking.think(louisThoughts);
+		Thinking.think(louisThoughts, louis);
 		louis.canFeel();
 		reality.shimmer();
 		louis.think("Reality-the real reality,", "was those needles, the filth on the sheets, the bloody scratch on his bare arm.");
-		Thinking.think(louisThoughts);
-		Talking.talk(rachelQuotes);
+		Thinking.think(louisThoughts, louis);
+		Talking.talk(rachelQuotes, rachel);
 		rachel.move(world.getPlace(rachel), stairs);
 		rachel.come(Direction.UP, world.getPlace(rachel));
-		Talking.talk(rachelQuotes);
+		Talking.talk(rachelQuotes, rachel);
 		louis.grapple();
 		pascow.beBrought(Direction.INTO, medicalcenter, blanket);
 		louis.win();
-		Thinking.think(louisThoughts);
+		Thinking.think(louisThoughts, louis);
 		louis.say("'I'm awake,'");
 		louis.bite(louis.tongue);
 		louis.wonder("if he had always been within touching distance of such mad irrationalities; if everyone was");
-		Talking.talk(rachelQuotes);
+		Talking.talk(rachelQuotes, rachel);
 		rachel.stop(riser);
-		Thinking.think(louisThoughts);
+		Thinking.think(louisThoughts, louis);
 		louis.say("'Two. Scrambled,'");
 		rachel.say("'Good for you,'");
 		rachel.move(world.getPlace(rachel), kitchen);
@@ -112,6 +112,6 @@ public class Main {
 		louis.feelBetter();
 		louis.dryOff();
 		louis.laugh();
-		louis.goOn(State.DRYING, State.LAUGHING);
+		louis.goOn();
 	}
 }

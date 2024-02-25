@@ -1,6 +1,7 @@
 package humans;
 
 import humans.states.Feeling;
+import humans.states.MentalState;
 import humans.states.State;
 import interfaces.Sayable;
 import interfaces.Stoppable;
@@ -15,7 +16,7 @@ public class Rachel extends Human implements Sayable, Stoppable {
 
 	@Override
 	public void say(String speech) {
-		setState(State.TALKING);
+		setMentalState(MentalState.TALKING);
 		System.out.printf("'%s,' %s called.%n", speech, name);
 	}
 	public void come(Direction direction, Place place) {

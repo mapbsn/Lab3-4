@@ -6,7 +6,6 @@ import bodyparts.Eyes;
 import bodyparts.states.ArmType;
 import bodyparts.states.BodyPartState;
 import exceptions.ArmException;
-import exceptions.HumanNotCarryingAnythingException;
 import exceptions.TooHeavyException;
 import humans.states.*;
 import interfaces.Jerkable;
@@ -17,9 +16,6 @@ import items.Item;
 
 import enums.Direction;
 import places.Place;
-import places.types.PlaceType;
-
-import javax.print.attribute.standard.MediaSize;
 
 public class Louis extends Human implements Sayable, Seeable, Jerkable, Thinkable {
 	
@@ -60,7 +56,7 @@ public class Louis extends Human implements Sayable, Seeable, Jerkable, Thinkabl
 	}
 	public void tell(String person) {
 		setFeeling(Feeling.ANXIETY);
-		setState(State.READY);
+		setMentalState(MentalState.READY);
 		System.out.printf("%s to tell %s he'd skip the eggs, just a bowl of cereal and he'd run...", this.state, person);
 	}
 	public void kick(BodyPart bodyPart1, String description, BodyPart bodyPart2, String description2, Direction direction) {
@@ -87,12 +83,12 @@ public class Louis extends Human implements Sayable, Seeable, Jerkable, Thinkabl
 		System.out.print("And he could too; it was roaring up from inside, nothing but a big cold bullet of fear.");
 	}
 	public void think(String thoughts1, String thoughts2) {
-		setState(State.THINKING);
+		setMentalState(MentalState.THINKING);
 		System.out.printf("%s, he thought-%s.%n", thoughts1, thoughts2);
 	}
 	public void grapple() {
 		setFeeling(Feeling.SELFSOOTHING);
-		setState(State.GRAPPLING);
+		setMentalState(MentalState.GRAPPLING);
 		heart.decreaseHeartRate(5);
 		System.out.printf("%s grappled for himself in those two or three seconds; he fought grimly for himself just as he had done in those moments of roaring confusion after ", name);
 	}
@@ -103,7 +99,7 @@ public class Louis extends Human implements Sayable, Seeable, Jerkable, Thinkabl
 	}
 	@Override
 	public void say(String speech) {
-		setState(State.TALKING);
+		setMentalState(MentalState.TALKING);
 		System.out.printf("'%s,' %s said", speech, name);
 	}
 	public void bite(BodyPart bodyPart) {
@@ -111,7 +107,7 @@ public class Louis extends Human implements Sayable, Seeable, Jerkable, Thinkabl
 		System.out.printf("%s bit his %s", name, bodyPart);
 	}
 	public void wonder(String thoughts) {
-		setState(State.THINKING);
+		setMentalState(MentalState.THINKING);
 		System.out.printf("His mind swirled, and somewhere deep inside, away from the action, he wondered %s.", thoughts);
 	}
 	public void seeInDark(String human, String bodyPart) {
@@ -168,11 +164,11 @@ public class Louis extends Human implements Sayable, Seeable, Jerkable, Thinkabl
 	}
 	public void laugh() {
 		setFeeling(Feeling.HAPPY);
-		setState(State.LAUGHING);
+		setMentalState(MentalState.LAUGHING);
 		System.out.print("He began to laugh.");
 	}
-	public void goOn(State state1, State state2) {
-		System.out.printf("He went on %s himself, but he also went on %s. He couldn't seem to stop.", state1, state2);
+	public void goOn() {
+		System.out.printf("He went on %s himself, but he also went on %s. He couldn't seem to stop.", this.state, this.mentalState);
 	}
 }
 
