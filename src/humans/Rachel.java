@@ -5,13 +5,13 @@ import humans.states.MentalState;
 import humans.states.State;
 import interfaces.Sayable;
 import interfaces.Stoppable;
-import places.Place;
 import enums.Direction;
+import places.types.PlaceType;
 
 public class Rachel extends Human implements Sayable, Stoppable {
 
-	public Rachel() {
-		super("Rachel");
+	public Rachel(int x, int y) {
+		super("Rachel", x, y);
 	}
 
 	@Override
@@ -19,16 +19,16 @@ public class Rachel extends Human implements Sayable, Stoppable {
 		setMentalState(MentalState.TALKING);
 		System.out.printf("'%s,' %s called.%n", speech, name);
 	}
-	public void come(Direction direction, Place place) {
+	public void come(Direction direction, PlaceType place) {
 		setFeeling(Feeling.ANXIETY);
 		setState(State.WALKING);
-		this.moveWithinPlace(direction, place);
+		System.out.printf("%s was coming %s the %s", this.name, direction, place);
 	}
 	@Override
-	public void stop(Place place) {
+	public void stop(PlaceType place) {
 		setFeeling(Feeling.RELIEF);
 		setState(State.STANDING);
-		System.out.printf("She had stopped on the second or third %s. %n", place);
+		System.out.printf("She had stopped on the %s. %n", place);
 	}
 
 

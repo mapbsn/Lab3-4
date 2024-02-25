@@ -15,7 +15,7 @@ import interfaces.Thinkable;
 import items.Item;
 
 import enums.Direction;
-import places.Place;
+import places.types.PlaceType;
 
 public class Louis extends Human implements Sayable, Seeable, Jerkable, Thinkable {
 	
@@ -27,8 +27,8 @@ public class Louis extends Human implements Sayable, Seeable, Jerkable, Thinkabl
 	public Head head;
 	public Head.Tongue tongue;
 	public Head.Teeth teeth;
-	public Louis() {
-		super("Louis");
+	public Louis(int x, int y) {
+		super("Louis", x, y);
 		this.eyes = new Eyes();
 		this.arm = new Arm();
 		this.heart = new Heart();
@@ -42,7 +42,7 @@ public class Louis extends Human implements Sayable, Seeable, Jerkable, Thinkabl
 	public void push(Direction direction, Item item) throws TooHeavyException {
 		setState(State.MOVING);
 		this.takeItem(item);
-		this.moveItem(Direction.BACK, item);
+		this.moveItem(Direction.BACK);
 		this.dropItem(item);
 		System.out.printf("%s pushed %s the %s", name, direction, item.toString());
 	}
@@ -57,12 +57,15 @@ public class Louis extends Human implements Sayable, Seeable, Jerkable, Thinkabl
 	public void tell(String person) {
 		setFeeling(Feeling.ANXIETY);
 		setMentalState(MentalState.READY);
-		System.out.printf("%s to tell %s he'd skip the eggs, just a bowl of cereal and he'd run...", this.state, person);
+		System.out.printf("%s to tell %s he'd skip the eggs, just a bowl of cereal and he'd run...", this.mentalState, person);
 	}
-	public void kick(BodyPart bodyPart1, String description, BodyPart bodyPart2, String description2, Direction direction) {
+	public void kick(BodyPart bodyPart1, String description, BodyPart bodyPart2, String description2, Item item, Direction direction) throws TooHeavyException {
 		setState(State.MOVING);
 		legs.setBendDegree(180);
-		System.out.printf("%s fast, %s %s, %s %s unfeelingly, he kicked the covers all the way %s.", state, bodyPart1.toString(), description, bodyPart2.toString(), description2, direction);
+		takeItem(item);
+		moveItem(Direction.BACK);
+		System.out.printf("%s fast, %s %s, %s %s, he kicked the %s all the way %s.", state, bodyPart1.toString(), description, bodyPart2.toString(), description2, item, direction);
+		dropItem(item);
 	}
 	@Override
 	public void see(String sight) {
@@ -73,9 +76,8 @@ public class Louis extends Human implements Sayable, Seeable, Jerkable, Thinkabl
 		setState(State.OBSERVING);
 		arm.setType(ArmType.getRandomArmType());
 		head.turnHead(Direction.RIGHTWAY);
-		{
-			System.out.printf("and suddenly he looked at his %s. There was a scratch there on the bicep, a fresh scratch, exactly where the dead branch had poked him. in the dream", bodyPart);
-		}
+		System.out.printf("and suddenly he looked at his %s. There was a scratch there on the bicep, a fresh scratch, exactly where the dead branch had poked him. in the dream", bodyPart);
+
 	}
 	public void canFeel() {
 		setFeeling(Feeling.HORROR);
@@ -103,8 +105,8 @@ public class Louis extends Human implements Sayable, Seeable, Jerkable, Thinkabl
 		System.out.printf("'%s,' %s said", speech, name);
 	}
 	public void bite(BodyPart bodyPart) {
-		tongue.bleed(bodyPart);
 		System.out.printf("%s bit his %s", name, bodyPart);
+		tongue.bleed(bodyPart);
 	}
 	public void wonder(String thoughts) {
 		setMentalState(MentalState.THINKING);
@@ -115,31 +117,40 @@ public class Louis extends Human implements Sayable, Seeable, Jerkable, Thinkabl
 		System.out.printf("In the darkness he saw %s's %s", human, bodyPart);
 		eyes.open(name, eyes.toString());
 	}
-	public void beginToMove(Place place) {
+	public void beginToMove(PlaceType place) {
 		setState(State.MOVING);
-		this.moveWithinPlace(Direction.FROMSIDETOSIDE, place);
 		System.out.printf("%s began to move rapidly, putting off any further thought.", name);
 	}
 	public void jerk(Direction direction, Item item) throws TooHeavyException{
 		arm.setLiftHeight(5);
 		arm.setBendDegree(30);
 		this.takeItem(item);
-		this.moveItem(direction, item);
+		moveItem(Direction.BACK);
+		System.out.printf("He jerked %s %s.", item.toString(), direction);
 		this.dropItem(item);
 		arm.setBendDegree(180);
 		arm.setLiftHeight(0);
-		System.out.printf("He jerked %s %s.", item.toString(), direction);
 	}
-	public void tidy(Place startingPoint, Place destination, Direction direction, Item item) throws TooHeavyException {
+	public void tidy(Direction direction, Item item) throws TooHeavyException {
 		setState(State.TIDYING);
 		arm.setLiftHeight(5);
 		arm.setBendDegree(30);
-		this.takeItem(item);
+		carryItem(item);
 		System.out.printf("He separated %s the two %s and balled them up.", direction, item);
 	}
-    public void step(Place place, Direction direction, String other, String description) {
+	public void switchShower(Direction direction, Item item) throws TooHeavyException {
+		arm.setLiftHeight(5);
+		arm.setBendDegree(30);
+		this.takeItem(item);
+		moveItem(Direction.UP);
+		System.out.printf("He jerked the %s %s.", item.toString(), direction);
+		this.dropItem(item);
+		arm.setBendDegree(180);
+		arm.setLiftHeight(0);
+	}
+    public void step(Direction direction, String other, String description, Item item) {
 		setState(State.STANDING);
-		this.moveWithinPlace(Direction.FORWARD, place);
+		item.setHorizontalDistance(0);
 		System.out.printf(" and stepped %s the %s %s.", direction, other, description);
 	}
 	public void wash(BodyPart bodyPart1, BodyPart bodyPart2) {

@@ -8,10 +8,10 @@ public class Bed extends Item implements Dirtiable {
 
     public Sheets sheets;
     public Needles needles;
-    public Bed() {
-        super(40, 1, 10);
-        this.sheets = new Sheets(1, 10);
-        this.needles = new Needles(-100, 0);
+    public Bed(int x, int y) {
+        super(40, x, y);
+        this.sheets = new Sheets(x, y);
+        this.needles = new Needles(-100, -100);
     }
 
     public void littered() {
@@ -31,12 +31,12 @@ public class Bed extends Item implements Dirtiable {
     @Override
     public void adjustDirtiness(int level) {
         dirtinessLevel += level;
-        System.out.printf("Dirtiness level adjusted: %d%n", dirtinessLevel);
+        System.out.printf("Item dirtiness level adjusted: %d%n", dirtinessLevel);
     }
 
     @Override
     public void decreaseDirtiness(int level) {
         dirtinessLevel -= level;
-        System.out.printf("Dirtiness level decreased: %d%n", dirtinessLevel);
+        System.out.printf("Item dirtiness level decreased: %d%n", dirtinessLevel);
     }
 }

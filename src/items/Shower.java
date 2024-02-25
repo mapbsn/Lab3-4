@@ -8,7 +8,7 @@ public class Shower extends Item {
     public Shower(int x, int y) {
         super(100, x, y);
         this.water = new Water();
-        this.handle = new Handle(x,y);
+        this.handle = new Handle(x, y);
     }
     @Override
     public String toString() {

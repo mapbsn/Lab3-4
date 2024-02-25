@@ -3,21 +3,21 @@ package humans;
 import bodyparts.Eyes;
 import humans.states.State;
 import items.Item;
-import places.Place;
 
 import enums.Direction;
+import places.types.PlaceType;
 
 public class Pascow extends Human {
 
 	public Eyes eyes;
-	public Pascow() {
-		super("Pascow");
+	public Pascow(int x, int y) {
+		super("Pascow", x, y);
 		this.eyes = new Eyes();
 	}
 
-	public void beBrought(Direction direction, Place place, Item item) {
+	public void beBrought(Direction direction, PlaceType place, Item item) {
 		setState(State.DYING);
-		System.out.printf("%s had been brought %s the %s, %s in a %s.", name, direction, place.toString(), state, item.toString());
+		System.out.printf("%s had been brought %s the %s, %s in a %s.", name, direction, place, state, item.toString());
 	}
 		
 }

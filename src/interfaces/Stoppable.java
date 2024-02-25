@@ -1,7 +1,7 @@
 package interfaces;
 
-import places.Place;
+import places.types.PlaceType;
 
 public interface Stoppable {
-    void stop(Place place);
+    void stop(PlaceType place);
 }
