@@ -36,7 +36,7 @@ public class Main {
 
 		louis.body.increaseLegDirtiness(5);
 		louis.body.heart.leapUp(louis.getName());
-		louis.kick(louis.body.head.teeth, louis.body.head.teeth.getDescription(), blanket, Direction.BACK);
+		louis.kick(louis.body.teeth.toString(), louis.body.teeth.getDescription(), blanket, Direction.BACK);
 		bed.littered();
 		bed.sheets.beDirty();
 
@@ -75,7 +75,7 @@ public class Main {
 		louis.win();
 		Thinking.think(louisThoughts, louis);
 		louis.say("'I'm awake,'");
-		louis.bite(louis.body.head.tongue);
+		louis.bite(louis.body.tongue.toString());
 		louis.wonder("if he had always been within touching distance of such mad irrationalities; if everyone was");
 		Talking.talk(rachelQuotes, rachel);
 		rachel.stop(rachel.getPlace());

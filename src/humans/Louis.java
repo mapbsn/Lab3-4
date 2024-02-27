@@ -29,27 +29,23 @@ public class Louis extends Human implements Sayable, Seeable, Jerkable, Thinkabl
 	public void swing(String description, Item item) {
 		setState(State.MOVING);
 		body.leftLeg.setLiftHeight(4);
-		body.leftLeg.foot.setLiftHeight(5);
 		body.rightLeg.setLiftHeight(4);
-		body.rightLeg.foot.setLiftHeight(5);
 		System.out.printf(" and swung his feet out onto the nubs of the %s %s, ", description, item.toString());
 		body.leftLeg.setLiftHeight(1);
-		body.leftLeg.foot.setLiftHeight(1);
 		body.rightLeg.setLiftHeight(1);
-		body.rightLeg.foot.setLiftHeight(1);
 	}
 	public void tell(String person) {
 		setFeeling(Feeling.ANXIETY);
 		setMentalState(MentalState.READY);
 		System.out.printf("%s to tell %s he'd skip the eggs, just a bowl of cereal and he'd run...", this.mentalState, person);
 	}
-	public void kick(Body bodyPart, String description, Item item, Direction direction) throws TooHeavyException {
+	public void kick(String bodyPart, String description, Item item, Direction direction) throws TooHeavyException {
 		setState(State.MOVING);
 		body.leftLeg.setBendDegree(180);
 		body.rightLeg.setBendDegree(180);
 		takeItem(item);
 		moveItem(Direction.BACK);
-		System.out.printf("%s fast, eyes bulging, %s %s, he kicked the %s all the way %s.", state, bodyPart.toString(), description, item, direction);
+		System.out.printf("%s fast, eyes bulging, %s %s, he kicked the %s all the way %s.", state, bodyPart, description, item, direction);
 		dropItem(item);
 	}
 	@Override
@@ -88,18 +84,18 @@ public class Louis extends Human implements Sayable, Seeable, Jerkable, Thinkabl
 		setMentalState(MentalState.TALKING);
 		System.out.printf("'%s,' %s said", speech, name);
 	}
-	public void bite(Body bodyPart) {
+	public void bite(String bodyPart) {
 		System.out.printf("%s bit his %s", name, bodyPart);
-		body.head.tongue.bleed(bodyPart);
+		body.tongue.bleed(bodyPart);
 	}
 	public void wonder(String thoughts) {
 		setMentalState(MentalState.THINKING);
 		System.out.printf("His mind swirled, and somewhere deep inside, away from the action, he wondered %s.", thoughts);
 	}
 	public void seeInDark(String human) {
-		body.head.closeEyes(this);
+		body.closeEyes(this);
 		System.out.printf("In the darkness he saw %s's silver eyes", human);
-		body.head.openEyes(this);
+		body.openEyes(this);
 	}
 	public void beginToMove() {
 		setState(State.MOVING);

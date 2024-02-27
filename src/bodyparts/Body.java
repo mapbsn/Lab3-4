@@ -11,6 +11,12 @@ public class Body {
     public Leg rightLeg;
     public Head head;
     public Heart heart;
+    public Head.Eye leftEye;
+    public Head.Eye rightEye;
+    public Head.Tongue tongue;
+    public Head.Teeth teeth;
+    public Leg.Feet leftFoot;
+    public Leg.Feet rightFoot;
 
     public Body() {
         this.leftArm = new Arm();
@@ -19,11 +25,17 @@ public class Body {
         this.rightLeg = new Leg();
         this.head = new Head();
         this.heart = new Heart();
+        this.leftEye = new Head.Eye();
+        this.rightEye = new Head.Eye();
+        this.tongue = new Head.Tongue();
+        this.teeth = new Head.Teeth();
+        this.leftFoot = new Leg.Feet();
+        this.rightFoot = new Leg.Feet();
     }
 
     public void increaseLegDirtiness(int level) {
-        leftLeg.foot.beFilthy(level);
-        rightLeg.foot.beFilthy(level);
+        leftFoot.beFilthy(level);
+        rightFoot.beFilthy(level);
         leftLeg.adjustDirtiness(level);
         rightLeg.adjustDirtiness(level);
     }
@@ -31,24 +43,34 @@ public class Body {
     public void decreaseLegDirtiness(int level) {
         leftLeg.decreaseDirtiness(level);
         rightLeg.decreaseDirtiness(level);
-        leftLeg.foot.decreaseDirtiness(level);
-        rightLeg.foot.decreaseDirtiness(level);
+        leftFoot.decreaseDirtiness(level);
+        rightFoot.decreaseDirtiness(level);
     }
     public void increaseLegWetness(int level) {
         leftLeg.increaseWetness(level);
         rightLeg.increaseWetness(level);
-        leftLeg.foot.increaseWetness(level);
-        rightLeg.foot.increaseWetness(level);
+        rightFoot.increaseWetness(level);
+        leftFoot.increaseWetness(level);
     }
 
     public void decreaseLegWetness(int level) {
         leftLeg.decreaseWetness(level);
         rightLeg.decreaseWetness(level);
-        leftLeg.foot.decreaseWetness(level);
-        rightLeg.foot.decreaseWetness(level);
+        leftFoot.decreaseWetness(level);
+        rightFoot.decreaseWetness(level);
+    }
+    public void closeEyes(Human human) {
+        leftEye.close();
+        rightEye.close();
+        System.out.printf("%s's eyes closed.", human.getName());
+    }
+    public void openEyes(Human human) {
+        leftEye.open();
+        rightEye.open();
+        System.out.printf("%s's eyes flew open again.", human.getName());
     }
 
-    public static class Arm extends Body {
+    public static class Arm {
         public Arm() {
         }
         public String toString() {
@@ -75,16 +97,8 @@ public class Body {
 
     }
 
-    public static class Head extends Body {
-        public Eye leftEye;
-        public Eye rightEye;
-        public Tongue tongue;
-        public Teeth teeth;
+    public static class Head {
         public Head() {
-            this.leftEye = new Eye();
-            this.rightEye = new Eye();
-            this.tongue = new Tongue();
-            this.teeth = new Teeth();
         }
         protected int degree; {
             degree = 0;
@@ -119,18 +133,8 @@ public class Body {
                 }
             }
         }
-        public void openEyes(Human human) {
-            leftEye.open();
-            rightEye.open();
-            System.out.printf("%s's eyes flew open again.", human.getName());
-        }
 
-        public void closeEyes(Human human) {
-            leftEye.close();
-            rightEye.close();
-            System.out.printf("%s's eyes closed.", human.getName());
-        }
-        public static class Eye extends Head {
+        public static class Eye {
 
             private int sightLevel = 100;
             public Eye() {
@@ -161,7 +165,7 @@ public class Body {
 
         }
 
-        public static class Tongue extends Head {
+        public static class Tongue {
             public Tongue() {
             }
 
@@ -170,12 +174,12 @@ public class Body {
                 return "tongue";
             }
 
-            public void bleed(Body bodyPart) {
-                System.out.printf("His %s was bleeding from the sudden, involuntary bite he had given it.", bodyPart.toString());
+            public void bleed(String bodyPart) {
+                System.out.printf("His %s was bleeding from the sudden, involuntary bite he had given it.", bodyPart);
             }
         }
 
-        public static class Teeth extends Head {
+        public static class Teeth {
             public Teeth() {
             }
             @Override
@@ -188,7 +192,7 @@ public class Body {
             }
         }
     }
-    public static class Heart extends Body {
+    public static class Heart {
         private int heartRate;
 
         public Heart() {
@@ -209,11 +213,9 @@ public class Body {
             System.out.printf("%s's %s leaped up in his throat like a crazy jack-in-the-box.", human, this);
         }
     }
-    public static class Leg extends Body implements Dirtiable {
+    public static class Leg implements Dirtiable {
 
-        public Feet foot;
         public Leg() {
-            this.foot = new Feet();
         }
 
         @Override
@@ -243,25 +245,20 @@ public class Body {
 
         public void adjustDirtiness(int level) {
             dirtinessLevel += level;
-            System.out.printf("Dirtiness level adjusted: %d%n", dirtinessLevel);
         }
 
         public void decreaseDirtiness(int level) {
             dirtinessLevel -= level;
-            System.out.printf("Dirtiness level decreased: %d%n", dirtinessLevel);
         }
         private int wetnessLevel;
         public void increaseWetness(int level) {
             wetnessLevel += level;
-            System.out.printf("Wetness level increased: %d%n", wetnessLevel);
         }
         public void decreaseWetness(int level) {
             wetnessLevel -= level;
-            System.out.printf("Wetness level decreased: %d%n", wetnessLevel);
         }
 
-        public static class Feet extends Leg {
-
+        public static class Feet implements Dirtiable {
             public Feet(){
             }
             @Override
@@ -272,6 +269,24 @@ public class Body {
             public void beFilthy(int level) {
                 adjustDirtiness(level);
                 System.out.printf("His feet were filthy with dirt and pine needles..%n");
+            }
+
+            @Override
+            public void adjustDirtiness(int level) {
+
+            }
+
+            @Override
+            public void decreaseDirtiness(int level) {
+
+            }
+
+            private int wetnessLevel;
+            public void increaseWetness(int level) {
+                wetnessLevel += level;
+            }
+            public void decreaseWetness(int level) {
+                wetnessLevel -= level;
             }
         }
     }

@@ -21,13 +21,11 @@ public class Sheets extends Item implements Dirtiable {
         @Override
         public void adjustDirtiness(int level) {
             dirtinessLevel += level;
-            System.out.printf("Dirtiness level adjusted: %d%n", dirtinessLevel);
         }
 
         @Override
         public void decreaseDirtiness(int level) {
             dirtinessLevel -= level;
-            System.out.printf("Dirtiness level decreased: %d%n", dirtinessLevel);
         }
         public void beDirty() {
             this.adjustDirtiness(5);
