@@ -16,5 +16,9 @@ public class Pascow extends Human {
 		setState(State.DYING);
 		System.out.printf("%s had been brought into the %s, %s in a %s.", name, place, state, item.toString());
 	}
-		
+
+	@Override
+	public String getName() {
+		return "Pascow";
+	}
 }

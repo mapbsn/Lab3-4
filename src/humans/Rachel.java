@@ -32,9 +32,10 @@ public class Rachel extends Human implements Sayable, Stoppable {
 	}
 
 
-
-
-
+	@Override
+	public String getName() {
+		return "Rachel";
+	}
 }
 	
 	

@@ -27,9 +27,7 @@ public abstract class Human implements CheckPlace {
 		this.y = y;
 	}
 	
-	 public String getName() {
-	        return name;
-	    }
+	 public abstract String getName();
 	 
 	 protected void setState(State state) {
 		this.state = state;

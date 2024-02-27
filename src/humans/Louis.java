@@ -156,5 +156,10 @@ public class Louis extends Human implements Sayable, Seeable, Jerkable, Thinkabl
 	public void goOn() {
 		System.out.printf("He went on %s himself, but he also went on %s. He couldn't seem to stop.", this.state, this.mentalState);
 	}
+
+	@Override
+	public String getName() {
+		return "Louis";
+	}
 }
 
