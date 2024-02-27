@@ -1,7 +1,6 @@
 package items;
 
 import interfaces.Dirtiable;
-import items.states.ItemState;
 
 public class Bed extends Item implements Dirtiable {
 
@@ -15,7 +14,6 @@ public class Bed extends Item implements Dirtiable {
     }
 
     public void littered() {
-        setState(ItemState.DIRTY);
         this.adjustDirtiness(5);
         needles.setX(this.getX());
         needles.setY(this.getY());

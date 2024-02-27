@@ -1,15 +1,13 @@
 package items;
 
-import exceptions.InvalidPlaceException;
+import exceptions.NullValueException;
 import interfaces.CheckPlace;
-import items.states.ItemState;
 import places.types.PlaceType;
 
 import java.util.Objects;
 
 public abstract class Item implements CheckPlace {
     protected String description = "";
-    protected ItemState state = ItemState.DEFAULT;
     private final int weight;
     private int horizontalDistance;
     private int verticalDistance;
@@ -30,12 +28,6 @@ public abstract class Item implements CheckPlace {
     }
     public int getWeight() {
         return weight;
-    }
-    protected void setState(ItemState state) {
-        this.state = state;
-    }
-    protected ItemState getState() {
-        return state;
     }
     public PlaceType getPlace() {
         return place;
@@ -67,8 +59,8 @@ public abstract class Item implements CheckPlace {
                 setPlace(place);
             }
         }
-        if (getPlace() == null) throw new InvalidPlaceException(
-                String.format("%s is nowhere to find", this)
+        if (getPlace() == null) throw new NullValueException(
+                String.format("%s is nowhere to find", this),null
         );
     }
     public int getHorizontalDistance() {
@@ -85,7 +77,7 @@ public abstract class Item implements CheckPlace {
     }
     @Override
     public int hashCode() {
-        return Objects.hash(toString(), getState(), getPlace(). getX(), getY());
+        return Objects.hash(toString(), getPlace(). getX(), getY());
     }
 
     @Override
@@ -93,7 +85,6 @@ public abstract class Item implements CheckPlace {
         if (this == obj) return true;
         return (obj instanceof Item item)
                 && (toString().equals(item.toString()))
-                && (place.equals(item.place))
-                && (state.equals(item.state));
+                && (place.equals(item.place));
     }
 }

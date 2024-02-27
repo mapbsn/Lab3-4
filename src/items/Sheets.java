@@ -1,8 +1,6 @@
 package items;
 
 import interfaces.Dirtiable;
-import items.states.ItemState;
-
 
 public class Sheets extends Item implements Dirtiable {
         public Sheets(int x, int y) {
@@ -32,7 +30,6 @@ public class Sheets extends Item implements Dirtiable {
             System.out.printf("Dirtiness level decreased: %d%n", dirtinessLevel);
         }
         public void beDirty() {
-            setState(ItemState.DIRTY);
             this.adjustDirtiness(5);
             System.out.printf("The %s were mucky and dirty.", this.toString());
         }

@@ -3,10 +3,8 @@ import humans.*;
 import items.*;
 import others.Reality;
 import places.*;
-
 import java.util.Arrays;
 import java.util.List;
-
 import enums.Direction;
 import places.types.PlaceType;
 
@@ -31,14 +29,14 @@ public class Main {
 
 		rachel.say("'One egg or two?'");
 		louis.push(Direction.BACK, blanket);
-		louis.swing(louis.feet, Direction.OUT, rug.getDescription(), rug);
+		louis.swing(rug.getDescription(), rug);
 		louis.tell(rachel.getName());
 
 		System.out.print("and the words died in his throat.");
 
-		louis.feet.beFilthy();
-		louis.heart.leapUp(louis.getName());
-		louis.kick(louis.eyes, louis.eyes.getDescription(), louis.teeth, louis.teeth.getDescription(), blanket, Direction.BACK);
+		louis.body.increaseLegDirtiness(5);
+		louis.body.heart.leapUp(louis.getName());
+		louis.kick(louis.body.head.teeth, louis.body.head.teeth.getDescription(), blanket, Direction.BACK);
 		bed.littered();
 		bed.sheets.beDirty();
 
@@ -52,11 +50,7 @@ public class Main {
 		Talking.talk(rachelQuotes, rachel);
 
 		louis.see("a few errant pine needles on his knees,");
-		try {
-			louis.lookAt(louis.arm.toString());
-		} catch (Exception e) {
-			System.out.println(e.getMessage());
-		}
+		louis.lookAt(louis.body.rightArm.toString());
 
 		List<String> louisThoughts = Arrays.asList(
 				"I’m going to scream. I can feel it.",
@@ -71,17 +65,17 @@ public class Main {
 		louis.think("Reality-the real reality,", "was those needles, the filth on the sheets, the bloody scratch on his bare arm.");
 		Thinking.think(louisThoughts, louis);
 		Talking.talk(rachelQuotes, rachel);
-		rachel.move(Direction.RIGHTWAY);
+		rachel.move(Direction.RIGHT);
 		rachel.move(Direction.UP);
 		rachel.checkPlace();
 		rachel.come(Direction.UP, rachel.getPlace());
 		Talking.talk(rachelQuotes, rachel);
 		louis.grapple();
-		pascow.beBrought(Direction.INTO, pascow.getPlace(), blanket);
+		pascow.beBrought(pascow.getPlace(), blanket);
 		louis.win();
 		Thinking.think(louisThoughts, louis);
 		louis.say("'I'm awake,'");
-		louis.bite(louis.tongue);
+		louis.bite(louis.body.head.tongue);
 		louis.wonder("if he had always been within touching distance of such mad irrationalities; if everyone was");
 		Talking.talk(rachelQuotes, rachel);
 		rachel.stop(rachel.getPlace());
@@ -89,22 +83,22 @@ public class Main {
 		louis.say("'Two. Scrambled,'");
 		rachel.say("'Good for you,'");
 		rachel.move(Direction.DOWN);
-		rachel.move(Direction.LEFTWAY);
+		rachel.move(Direction.LEFT);
 		rachel.checkPlace();
-		louis.seeInDark(pascow.getName(), pascow.eyes.toString());
-		louis.beginToMove(louis.getPlace());
+		louis.seeInDark(pascow.getName());
+		louis.beginToMove();
 		louis.jerk(Direction.BACK, bed.sheets);
 		blanket.beOkay();
 		louis.takeItem(bed.sheets);
-		louis.move(Direction.RIGHTWAY);
+		louis.move(Direction.RIGHT);
 		louis.checkPlace();
-		louis.tidy(Direction.OUT, bed.sheets);
+		louis.tidy(bed.sheets);
 		louis.dropItem(bed.sheets);
-		louis.move(Direction.RIGHTWAY);
+		louis.move(Direction.RIGHT);
 		louis.checkPlace();
 		louis.switchShower(Direction.UP, shower.handle);
-		louis.step(Direction.UNDER, shower.water.toString(), shower.water.getDescription(), shower);
-		louis.wash(louis.feet, louis.legs);
+		louis.step(shower.water.toString(), shower.water.getDescription(), shower);
+		louis.wash();
 		louis.feelBetter();
 		louis.dryOff();
 		louis.laugh();

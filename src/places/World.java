@@ -2,6 +2,7 @@ package places;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Objects;
 
 import humans.*;
 import items.Item;
@@ -40,4 +41,12 @@ public class World {
     public void putPlaces(PlaceType... p) {
         places.addAll(Arrays.asList(p));
     }
+
+    public ArrayList<Human> getHumans() {
+        return new ArrayList<>(humans);
+    }
+    public ArrayList<Item> getItems() {
+        return new ArrayList<>(items);
+    }
+
 }

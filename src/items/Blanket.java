@@ -1,7 +1,6 @@
 package items;
 
 import interfaces.Dirtiable;
-import items.states.ItemState;
 
 public class Blanket extends Item implements Dirtiable {
 
@@ -15,7 +14,6 @@ public class Blanket extends Item implements Dirtiable {
     }
 
     public void beOkay() {
-        setState(ItemState.CLEAN);
         this.decreaseDirtiness(5);
         System.out.printf("%s was okay.", this.toString());
     }

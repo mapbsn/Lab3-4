@@ -1,9 +1,7 @@
 package humans;
 
 import enums.Direction;
-import exceptions.HumanNotCarryingAnythingException;
-import exceptions.InvalidPlaceException;
-import exceptions.TooHeavyException;
+import exceptions.*;
 import humans.states.*;
 import interfaces.CheckPlace;
 import items.Item;
@@ -79,17 +77,17 @@ public abstract class Human implements CheckPlace {
 			}
 		}
 		System.out.printf("%s is now in the %s", this.name, this.place);
-		if (getPlace() == null) throw new InvalidPlaceException(
-				String.format("%s is nowhere to find", this.name)
+		if (getPlace() == null) throw new NullValueException(
+				String.format("%s is nowhere to find", this.name), null
 		);
 	}
 	public void move(Direction direction) {
 		switch(direction) {
-			case RIGHTWAY -> {
+			case RIGHT -> {
 				setX(getX() + 1);
 				setY(getY());
 			}
-			case LEFTWAY -> {
+			case LEFT -> {
 				setX(getX() - 1);
 				setY(getY());
 			}
@@ -118,8 +116,8 @@ public abstract class Human implements CheckPlace {
 	}
 	public void carryItem(Item... i) {
 		if (carriedItem == null) {
-			throw new HumanNotCarryingAnythingException(
-					String.format("%s isn't carrying anything", this.getName())
+			throw new NullValueException(
+					String.format("%s isn't carrying anything", this.getName()), null
 			);
 		}
 		for (Item item : i) {
@@ -130,8 +128,8 @@ public abstract class Human implements CheckPlace {
 
 	public void moveItem(Direction direction, Item... i) {
 		if (carriedItem == null) {
-			throw new HumanNotCarryingAnythingException(
-					String.format("%s isn't carrying anything", this.getName())
+			throw new NullValueException(
+					String.format("%s isn't carrying anything", this.getName()), null
 			);
 		}
 		for (Item item : i) {
@@ -154,8 +152,8 @@ public abstract class Human implements CheckPlace {
 
 	public void dropItem(Item... i) {
 		if (carriedItem == null) {
-			throw new HumanNotCarryingAnythingException(
-					String.format("%s isn't carrying anything", this.getName()));}
+			throw new NullValueException(
+					String.format("%s isn't carrying anything", this.getName()), null);}
 		int weight = carriedItem.getWeight();
 		for (Item item : i) {
 			weight -= carriedItem.getWeight();
